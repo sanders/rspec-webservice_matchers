@@ -4,6 +4,8 @@ require 'curb'
 module RSpec
   module WebserviceMatchers
 
+    class JsonSchemaUnreadable < StandardError; end
+
     def self.has_valid_ssl_cert?(domain_name_or_url)
       # Normalize the input: remove 'http(s)://' if it's there
       if %r|^https?://(.+)$| === domain_name_or_url
@@ -23,6 +25,12 @@ module RSpec
 
     # RSpec Custom Matchers ###########################################
     # See https://www.relishapp.com/rspec/rspec-expectations/v/2-3/docs/custom-matchers/define-matcher
+
+    RSpec::Matchers.define :be_valid_json do
+      match do |schema_to_validate_against|
+        raise JsonSchemaUnreadable
+      end
+    end
 
     # Test whether https is correctly implemented
     RSpec::Matchers.define :have_a_valid_cert do
