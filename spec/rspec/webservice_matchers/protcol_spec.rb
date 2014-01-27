@@ -28,9 +28,9 @@ describe 'be_up' do
 end
 
 describe 'json schema validation' do
-  it 'recognizes correct content'
-  it 'throws a meaningful exception if schema data not readable'
-  it 'throws a meaningful exception if the schema is not valid'
-  it 'throws a meaningful exception if the resource cannot be read'
-  it 'throws a meaningful exception if resource doesn\'t validate against the schema'
+  it 'succeeds if the resource validates against the schema'
+  it 'fails if schema data not readable'
+  it 'fails if the schema is not valid'
+  it 'fails if the resource cannot be read'
+  it 'fails if resource doesn\'t validate against the schema'
 end
