@@ -28,11 +28,10 @@ describe 'be_up' do
 end
 
 describe 'json schema validation' do
-  # let (:valid_schema) {  }
-
   let (:valid_resource) { 'https://www.eff.org/' }
-
   let (:missing_schema) { nil }
+  let (:invalid_schema) { 'Definitely not a valid schema' }
+  # let (:valid_schema) {  }
 
   it 'succeeds if the resource validates against the schema'
 
@@ -42,7 +41,11 @@ describe 'json schema validation' do
     }.to raise_exception RSpec::WebserviceMatchers::JsonSchemaUnreadable
   end
 
-  it 'fails if the schema is not valid'
+  it 'fails if the schema is not valid' do
+    expect {
+      valid_resource.should be_valid_json( invalid_schema )
+    }.to raise_exception RSpec::WebserviceMatchers::JsonSchemaInvalid
+  end
 
   it 'fails if the resource cannot be read'
 
